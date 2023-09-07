@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-app
+  template:
+    metadata:
+      labels:
+        app: nodejs-app
+    spec:
+      containers:
+        - name: nodejs-app
+          image: manojkumarakula/notejsapp:1
+          ports:
+            - containerPort: 3000
+          env:
+            - name: ENV_VAR_1
+              value: value
+            - name: ENV_VAR_2
+              value: value
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"

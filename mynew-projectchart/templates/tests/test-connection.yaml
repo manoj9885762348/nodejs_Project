@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "mynew-projectchart.fullname" . }}-test-connection"
+  labels:
+    {{- include "mynew-projectchart.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: manojkumarakula/notejsapp:1
+      command: ['wget']
+      args: ['{{ include "mynew-projectchart.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
